@@ -1,7 +1,6 @@
 package com.jobfinder.job_finder.entity;
-
+import jakarta.persistence.FetchType;
 import jakarta.persistence.*;
-
 @Entity
 @Table(name = "job_applications")
 public class JobApplication {
@@ -10,25 +9,43 @@ public class JobApplication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "job_id")
     private Job job;
 
+
+    @Column(nullable = false)
     private String applicantEmail;
 
-    @Enumerated(EnumType.STRING)
-    private JobApplicationStatus status;
+    @Column(nullable = false)
+    private String status;
 
-    // getters & setters
+    // ===== getters & setters =====
+    public Long getId() {
+        return id;
+    }
+
+    public Job getJob() {
+        return job;
+    }
+
     public void setJob(Job job) {
         this.job = job;
+    }
+
+    public String getApplicantEmail() {
+        return applicantEmail;
     }
 
     public void setApplicantEmail(String applicantEmail) {
         this.applicantEmail = applicantEmail;
     }
 
-    public void setStatus(JobApplicationStatus status) {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
         this.status = status;
     }
 }

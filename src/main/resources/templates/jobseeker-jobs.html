@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Available Jobs</title>
+    <title>View Jobs</title>
 </head>
 <body>
 
@@ -11,31 +11,19 @@
     <tr>
         <th>Title</th>
         <th>Company</th>
-        <th>Location</th>
         <th>Action</th>
     </tr>
 
     <tr th:each="job : ${jobs}">
         <td th:text="${job.title}"></td>
         <td th:text="${job.company}"></td>
-        <td th:text="${job.location}"></td>
         <td>
-            <form th:if="${!appliedMap[job.id]}"
-                  th:action="@{/jobseeker/jobs/{id}/apply(id=${job.id})}"
-                  method="post">
+            <form th:action="@{/jobseeker/apply/{id}(id=${job.id})}" method="post">
                 <button type="submit">Apply</button>
             </form>
-
-            <span th:if="${appliedMap[job.id]}" style="color:green;">
-    ✔ Applied
-</span>
-
         </td>
     </tr>
 </table>
-
-<br>
-<a href="/jobseeker/dashboard">Back to Dashboard</a>
 
 </body>
 </html>

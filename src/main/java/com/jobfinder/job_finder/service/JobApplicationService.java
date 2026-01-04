@@ -2,7 +2,6 @@ package com.jobfinder.job_finder.service;
 
 import com.jobfinder.job_finder.entity.Job;
 import com.jobfinder.job_finder.entity.JobApplication;
-import com.jobfinder.job_finder.entity.JobApplicationStatus;
 import com.jobfinder.job_finder.repository.JobApplicationRepository;
 import com.jobfinder.job_finder.repository.JobRepository;
 import org.springframework.stereotype.Service;
@@ -21,10 +20,11 @@ public class JobApplicationService {
         this.jobRepository = jobRepository;
     }
 
-    // Apply for a job (prevents duplicate applications)
-    public void applyForJob(Long jobId, String applicantEmail) {
-        if (jobApplicationRepository.existsByJobIdAndApplicantEmail(jobId, applicantEmail)) {
-            return; // already applied
+    // ================= APPLY =================
+    public void apply(Long jobId, String email) {
+
+        if (jobApplicationRepository.existsByJobIdAndApplicantEmail(jobId, email)) {
+            return;
         }
 
         Job job = jobRepository.findById(jobId)
@@ -32,19 +32,18 @@ public class JobApplicationService {
 
         JobApplication application = new JobApplication();
         application.setJob(job);
-        application.setApplicantEmail(applicantEmail);
-        application.setStatus(JobApplicationStatus.APPLIED);
-
+        application.setApplicantEmail(email);
+        application.setStatus("APPLIED");
 
         jobApplicationRepository.save(application);
     }
 
-    // Job seeker: view own applications
+    // ================= JOBSEEKER =================
     public List<JobApplication> getApplicationsForUser(String email) {
         return jobApplicationRepository.findByApplicantEmail(email);
     }
 
-    // Employer: view applications per job
+    // ================= EMPLOYER =================
     public List<JobApplication> getApplicationsByJobId(Long jobId) {
         return jobApplicationRepository.findByJobId(jobId);
     }

@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class DashboardController {
 
     @GetMapping("/dashboard")
-    public String dashboard(Authentication authentication) {
+    public String dashboard(Authentication auth) {
 
-        if (authentication.getAuthorities().stream()
+        if (auth.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_JOB_SEEKER"))) {
             return "redirect:/jobseeker/dashboard";
         }
 
-        if (authentication.getAuthorities().stream()
+        if (auth.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_EMPLOYER"))) {
             return "redirect:/employer/dashboard";
         }

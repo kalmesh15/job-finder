@@ -20,9 +20,10 @@
     <td th:text="${job.company}">Company</td>
     <td th:text="${job.location}">Location</td>
     <td>
-      <a th:href="@{/employer/jobs/{id}/applications(id=${job.id})}">
+      <a th:href="@{/employer/job/{id}/applications(id=${job.id})}">
         View Applications
       </a>
+
     </td>
   </tr>
 </table>
