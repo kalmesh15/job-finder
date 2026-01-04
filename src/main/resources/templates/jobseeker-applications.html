@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>My Applications</title>
+</head>
+<body>
+
+<h2>My Applications</h2>
+
+<table border="1">
+  <tr>
+    <th>Job Title</th>
+    <th>Status</th>
+  </tr>
+
+  <tr th:each="app : ${applications}">
+    <td th:text="${app.job.title}">Job Title</td>
+    <td th:text="${app.status}">Status</td>
+  </tr>
+</table>
+
+<a href="/jobseeker/dashboard">Back to Dashboard</a>
+
+</body>
+</html>

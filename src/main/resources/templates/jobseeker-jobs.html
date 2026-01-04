@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Jobs</title>
+</head>
+<body>
+
+<h2>Available Jobs</h2>
+
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Company</th>
+        <th>Location</th>
+        <th>Action</th>
+    </tr>
+
+    <tr th:each="job : ${jobs}">
+        <td th:text="${job.title}"></td>
+        <td th:text="${job.company}"></td>
+        <td th:text="${job.location}"></td>
+        <td>
+            <form th:if="${!appliedMap[job.id]}"
+                  th:action="@{/jobseeker/jobs/{id}/apply(id=${job.id})}"
+                  method="post">
+                <button type="submit">Apply</button>
+            </form>
+
+            <span th:if="${appliedMap[job.id]}" style="color:green;">
+    ✔ Applied
+</span>
+
+        </td>
+    </tr>
+</table>
+
+<br>
+<a href="/jobseeker/dashboard">Back to Dashboard</a>
+
+</body>
+</html>

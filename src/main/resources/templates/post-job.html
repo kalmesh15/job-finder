@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post Job</title>
+</head>
+<body>
+
+<h2>Post a Job</h2>
+
+<form action="/employer/post-job" method="post">
+
+    <label>Title:</label>
+    <input type="text" name="title" required><br><br>
+
+    <label>Company:</label>
+    <input type="text" name="company" required><br><br>
+
+    <label>Location:</label>
+    <input type="text" name="location" required><br><br>
+
+    <label>Description:</label>
+    <textarea name="description" required></textarea><br><br>
+
+    <button type="submit">Post Job</button>
+</form>
+
+<br>
+<a href="/employer/dashboard">Back</a>
+
+
+</body>
+</html>

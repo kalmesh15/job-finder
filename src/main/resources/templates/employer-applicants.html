@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Applicants</title>
+</head>
+<body>
+
+<h2>Job Applicants</h2>
+
+<table border="1">
+  <tr>
+    <th>Applicant Email</th>
+    <th>Status</th>
+  </tr>
+
+  <tr th:each="app : ${applications}">
+    <td th:text="${app.applicantEmail}"></td>
+    <td th:text="${app.status}"></td>
+  </tr>
+</table>
+
+<br>
+<a href="/employer/jobs">Back</a>
+
+</body>
+</html>
