@@ -1,29 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>View Jobs</title>
+    <title>Available Jobs</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
 <h2>Available Jobs</h2>
 
-<table border="1">
+<!-- ================= SEARCH BAR ================= -->
+<form method="get" action="/jobseeker/jobs">
+    <input type="text"
+           name="keyword"
+           placeholder="Search by title or company"
+           th:value="${keyword}">
+    <button type="submit">Search</button>
+</form>
+
+<br>
+
+<!-- ================= JOB LIST ================= -->
+<table border="1" width="100%">
+    <thead>
     <tr>
         <th>Title</th>
         <th>Company</th>
+        <th>Description</th>
         <th>Action</th>
     </tr>
+    </thead>
 
+    <tbody>
     <tr th:each="job : ${jobs}">
         <td th:text="${job.title}"></td>
         <td th:text="${job.company}"></td>
+        <td th:text="${job.description}"></td>
+
         <td>
-            <form th:action="@{/jobseeker/apply/{id}(id=${job.id})}" method="post">
+            <form th:action="@{/jobseeker/apply/{id}(id=${job.id})}"
+                  method="post">
                 <button type="submit">Apply</button>
             </form>
         </td>
     </tr>
+
+    <tr th:if="${#lists.isEmpty(jobs)}">
+        <td colspan="4" style="text-align:center;">
+            No jobs found
+        </td>
+    </tr>
+    </tbody>
 </table>
+
+<br>
+
+<a href="/jobseeker/dashboard">Back to Dashboard</a>
 
 </body>
 </html>

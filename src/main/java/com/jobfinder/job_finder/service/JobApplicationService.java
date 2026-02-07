@@ -5,7 +5,8 @@ import com.jobfinder.job_finder.entity.JobApplication;
 import com.jobfinder.job_finder.repository.JobApplicationRepository;
 import com.jobfinder.job_finder.repository.JobRepository;
 import org.springframework.stereotype.Service;
-
+import com.jobfinder.job_finder.entity.JobApplication;
+import com.jobfinder.job_finder.entity.Job;
 import java.util.List;
 
 @Service
@@ -38,7 +39,7 @@ public class JobApplicationService {
         jobApplicationRepository.save(application);
     }
 
-    // ================= JOBSEEKER =================
+    // ================= JOB SEEKER =================
     public List<JobApplication> getApplicationsForUser(String email) {
         return jobApplicationRepository.findByApplicantEmail(email);
     }
@@ -47,4 +48,24 @@ public class JobApplicationService {
     public List<JobApplication> getApplicationsByJobId(Long jobId) {
         return jobApplicationRepository.findByJobId(jobId);
     }
+
+    // ================= UPDATE STATUS =================
+    public void updateStatus(Long applicationId, String status) {
+        JobApplication application = jobApplicationRepository.findById(applicationId)
+                .orElseThrow(() -> new RuntimeException("Application not found"));
+
+        application.setStatus(status);
+        jobApplicationRepository.save(application);
+    }
+
+    public List<Long> getAppliedJobIds(String email) {
+        return jobApplicationRepository
+                .findByApplicantEmail(email)
+                .stream()
+                .map(app -> app.getJob().getId())
+                .toList();
+    }
+
+
+
 }

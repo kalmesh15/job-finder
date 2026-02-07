@@ -1,26 +1,23 @@
 package com.jobfinder.job_finder.entity;
-import jakarta.persistence.FetchType;
+
 import jakarta.persistence.*;
+
 @Entity
-@Table(name = "job_applications")
 public class JobApplication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "job_id")
     private Job job;
 
-
-    @Column(nullable = false)
     private String applicantEmail;
 
-    @Column(nullable = false)
     private String status;
 
-    // ===== getters & setters =====
+    // getters & setters
     public Long getId() {
         return id;
     }

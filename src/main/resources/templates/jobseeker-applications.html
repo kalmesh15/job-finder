@@ -2,24 +2,69 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>My Applications</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 
-<h2>My Applications</h2>
-
-<table border="1">
+<div class="container mt-5">
+  <h3 class="mb-4">📄 My Applications</h3>
   <tr>
-    <th>Job Title</th>
-    <th>Status</th>
+    <td>TEST JOB</td>
+    <td>TEST COMPANY</td>
+    <td>
+      <span class="badge applied">APPLIED</span>
+      <span class="badge accepted">ACCEPTED</span>
+      <span class="badge rejected">REJECTED</span>
+    </td>
   </tr>
 
-  <tr th:each="app : ${applications}">
-    <td th:text="${app.job.title}">Job Title</td>
-    <td th:text="${app.status}">Status</td>
-  </tr>
-</table>
 
-<a href="/jobseeker/dashboard">Back to Dashboard</a>
+  <table class="table table-bordered table-hover bg-white">
+    <thead class="table-dark">
+    <tr>
+      <th>Job Title</th>
+      <th>Company</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="app : ${applications}">
+      <td th:text="${app.job != null ? app.job.title : 'N/A'}"></td>
+      <td th:text="${app.job != null ? app.job.company : 'N/A'}"></td>
+
+      <td>
+  <span
+          th:text="${app.status}"
+          th:class="
+      ${app.status} == 'APPLIED' ? 'badge applied' :
+      (${app.status} == 'ACCEPTED' ? 'badge accepted' :
+      'badge rejected')
+    ">
+  </span>
+
+        <div class="status-msg"
+             th:if="${app.status == 'APPLIED'}">
+          Waiting for employer response
+        </div>
+
+        <div class="status-msg success"
+             th:if="${app.status == 'ACCEPTED'}">
+          Congratulations 🎉
+        </div>
+
+        <div class="status-msg danger"
+             th:if="${app.status == 'REJECTED'}">
+          Better luck next time
+        </div>
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+
+  <a href="/jobseeker/dashboard" class="btn btn-secondary mt-3">⬅ Back</a>
+</div>
 
 </body>
 </html>

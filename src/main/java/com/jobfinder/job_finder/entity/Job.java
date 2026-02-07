@@ -2,6 +2,12 @@ package com.jobfinder.job_finder.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.jobfinder.job_finder.entity.Job;
+import com.jobfinder.job_finder.service.JobApplicationService;
+import com.jobfinder.job_finder.service.JobService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Entity
 @Table(name = "jobs")

@@ -1,5 +1,5 @@
 package com.jobfinder.job_finder.controller;
-
+import com.jobfinder.job_finder.service.JobApplicationService;
 import com.jobfinder.job_finder.entity.Job;
 import com.jobfinder.job_finder.service.JobApplicationService;
 import com.jobfinder.job_finder.service.JobService;
@@ -55,4 +55,16 @@ public class EmployerController {
         );
         return "employer-applicants";
     }
+    @PostMapping("/applications/{appId}/accept")
+    public String acceptApplication(@PathVariable Long appId) {
+        jobApplicationService.updateStatus(appId, "ACCEPTED");
+        return "redirect:/employer/jobs";
+    }
+
+    @PostMapping("/applications/{appId}/reject")
+    public String rejectApplication(@PathVariable Long appId) {
+        jobApplicationService.updateStatus(appId, "REJECTED");
+        return "redirect:/employer/jobs";
+    }
+
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Applicants</title>
 </head>
@@ -9,15 +9,27 @@
 
 <table border="1">
   <tr>
-    <th>Applicant Email</th>
+    <th>Email</th>
     <th>Status</th>
+    <th>Action</th>
   </tr>
 
   <tr th:each="app : ${applications}">
     <td th:text="${app.applicantEmail}"></td>
     <td th:text="${app.status}"></td>
-  </tr>
 
+    <td>
+      <form th:action="@{/employer/application/{id}/accept(id=${app.id})}"
+            method="post" style="display:inline;">
+        <button type="submit">Accept</button>
+      </form>
+
+      <form th:action="@{/employer/application/{id}/reject(id=${app.id})}"
+            method="post" style="display:inline;">
+        <button type="submit">Reject</button>
+      </form>
+    </td>
+  </tr>
 </table>
 
 <br>

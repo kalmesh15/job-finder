@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Available Jobs</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
@@ -20,10 +21,18 @@
     <td th:text="${job.company}"></td>
     <td th:text="${job.location}"></td>
     <td>
-      <form th:action="@{/jobseeker/apply/{id}(id=${job.id})}" method="post">
+      <form th:if="${!appliedJobIds.contains(job.id)}"
+            th:action="@{/jobseeker/apply/{id}(id=${job.id})}"
+            method="post">
         <button type="submit">Apply</button>
       </form>
+
+      <span th:if="${appliedJobIds.contains(job.id)}"
+            style="color: green; font-weight: bold;">
+    Applied
+  </span>
     </td>
+
   </tr>
 </table>
 

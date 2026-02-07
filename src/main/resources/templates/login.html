@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <title>Login</title>
-</head>
+  <link rel="stylesheet" th:href="@{/css/style.css}"></head>
 <body>
 
 <h2>Login</h2>
 
 <form th:action="@{/login}" method="post">
-  <input type="email" name="username" placeholder="Email" required /><br><br>
-  <input type="password" name="password" placeholder="Password" required /><br><br>
+  <label>Email</label>
+  <input type="text" name="username" required />
+
+  <label>Password</label>
+  <input type="password" name="password" required />
+
   <button type="submit">Login</button>
 </form>
 

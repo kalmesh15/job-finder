@@ -5,10 +5,7 @@ import com.jobfinder.job_finder.service.JobService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/jobseeker")
@@ -33,10 +30,24 @@ public class JobSeekerController {
 
     // ===================== VIEW JOBS =====================
     @GetMapping("/jobs")
-    public String viewJobs(Model model) {
-        model.addAttribute("jobs", jobService.getAllJobs());
+    public String viewJobs(
+            @RequestParam(required = false) String keyword,
+            Model model,
+            Authentication authentication
+    ) {
+
+        model.addAttribute("jobs", jobService.searchJobs(keyword));
+
+        model.addAttribute(
+                "appliedJobIds",
+                jobApplicationService.getAppliedJobIds(authentication.getName())
+        );
+
+        model.addAttribute("keyword", keyword);
+
         return "jobseeker-jobs";
     }
+
 
     // ===================== APPLY JOB =====================
     @PostMapping("/apply/{jobId}")
